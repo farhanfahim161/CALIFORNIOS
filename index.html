@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Californios - Two Michelin Star Mexican Cuisine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: #fafafa;
+            color: #2a2a2a;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.9), rgba(255, 140, 66, 0.85)), 
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 215, 0, 0.2) 0%, transparent 50%);
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-50px, -50px) rotate(5deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 2rem;
+        }
+
+        .logo {
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; }
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            letter-spacing: 0.2em;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .stars {
+            font-size: 2.5rem;
+            margin: 1.5rem 0;
+            color: #ffd700;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .awards {
+            font-size: 0.9rem;
+            color: white;
+            letter-spacing: 0.15em;
+            margin-top: 1rem;
+            text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 1.2rem 3rem;
+            background: white;
+            color: #ff6b35;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* About Section */
+        .about {
+            padding: 8rem 5%;
+            background: white;
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ff6b35, transparent);
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            line-height: 1.2;
+            color: #2a2a2a;
+        }
+
+        .about-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 1.5rem;
+        }
+
+        .chef-signature {
+            font-style: italic;
+            color: #ff6b35;
+            margin-top: 2rem;
+            font-size: 1.3rem;
+        }
+
+        .about-image {
+            position: relative;
+            height: 500px;
+            background: url('https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Menu Highlights */
+        .menu-section {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-header h2 {
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: #2a2a2a;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: #666;
+            letter-spacing: 0.1em;
+        }
+
+        .menu-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 0;
+            border: 1px solid #e0e0e0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-color: #ffdfcc;
+        }
+
+        .menu-item-content {
+            padding: 2rem;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35, #ff8c42, #ffd700);
+            transform: scaleX(0);
+            transition: transform 0.4s;
+        }
+
+        .menu-item:hover::before {
+            transform: scaleX(1);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            border-color: #ff6b35;
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.2);
+        }
+
+        .menu-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ff6b35;
+        }
+
+        .menu-item p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* Experience Section */
+        .experience {
+            padding: 8rem 5%;
+            background: white;
+            text-align: center;
+        }
+
+        .experience-grid {
+            max-width: 1200px;
+            margin: 4rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .experience-card {
+            padding: 3rem 2rem;
+            background: #fff5f0;
+            border: 1px solid #ffe0d0;
+            transition: all 0.3s;
+        }
+
+        .experience-card:hover {
+            background: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.15);
+        }
+
+        .experience-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ff6b35;
+        }
+
+        .experience-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 8rem 5%;
+            background: linear-gradient(135deg, #fff5f0 0%, #ffffff 100%);
+        }
+
+        .gallery-grid {
+            max-width: 1400px;
+            margin: 4rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s;
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.6), rgba(255, 140, 66, 0.4));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        /* Reservation Section */
+        .reservation {
+            padding: 8rem 5%;
+            background: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            text-align: center;
+        }
+
+        .reservation::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.92), rgba(255, 140, 66, 0.88));
+        }
+
+        .reservation-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .reservation h2 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .reservation p {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-info {
+            margin: 3rem 0;
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-info a:hover {
+            color: #ffd700;
+        }
+
+        .reservation .cta-button {
+            background: white;
+            color: #ff6b35;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 5%;
+            background: #f5f5f5;
+            text-align: center;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-links a:hover {
+            color: #ff6b35;
+        }
+
+        .copyright {
+            color: #999;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+
+            .about-content,
+            .menu-grid,
+            .experience-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2,
+            .reservation h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="logo">CALIFORNIOS</h1>
+            <p class="tagline">CALIFORNIA MEXICAN CUISINE</p>
+            <div class="stars">✦ ✦</div>
+            <p class="awards">TWO MICHELIN STARS<br>#14 BEST RESTAURANT IN NORTH AMERICA</p>
+            <a href="#reservation" class="cta-button">RESERVE YOUR TABLE</a>
+        </div>
+        <div class="scroll-indicator">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" stroke="white" stroke-width="2">
+                <polyline points="7,10 15,18 23,10"/>
+            </svg>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>A Contemporary Expression of Mexican Heritage</h2>
+                <p>Californios represents a divine dining experience where Chef Val M. Cantú's passionate focus on heritage meets masterful technique and the bountiful ingredients of the Bay Area.</p>
+                <p>Through ingenuity and the finest products, we elevate the foundational elements of Mexican cuisine into something uniquely complex and delicious. Each dish tells a story of tradition reimagined through a California lens.</p>
+                <p class="chef-signature">— Chef Val M. Cantú</p>
+            </div>
+            <div class="about-image"></div>
+        </div>
+    </section>
+
+    <section class="menu-section">
+        <div class="section-header">
+            <h2>The Experience</h2>
+            <p>A CHOREOGRAPHED TASTING MENU DISPLAYING THE ABUNDANCE OF EACH SEASON</p>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1626200419199-391ae4be7a41?w=600&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Ceviche</h3>
+                    <p>Lime cured cold-smoked hamachi with sweet lime aguachile, pickled buddha's hand, and cold pressed cilantro</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjobCePnCYrexSE90YU5VOw73_a4PjpYG6fQ&s?w=600&q=80'); background-color: #f0f0f0;"></div>
+                <div class="menu-item-content">
+                    <h3>Black Cod</h3>
+                    <p>Beer and mezcal-battered black cod in sour cherry tamarind salsa, served in a freshly made tortilla</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://sc02.alicdn.com/kf/H17c418ab15db4003a4af293faa502b39t.png?w=600&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Mole</h3>
+                    <p>Our signature mole showcasing complex layers of chilies, spices, and chocolate in perfect harmony</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Tacos</h3>
+                    <p>An unmatchable trio of tacos featuring seasonal ingredients and innovative preparations</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Potato Soup</h3>
+                    <p>Luxurious potato soup crowned with caviar, a celebration of simplicity and elegance</p>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Desserts</h3>
+                    <p>Creative sweet endings by our pastry team, featuring Mexican fruits and traditional flavors reimagined</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="experience">
+        <div class="section-header">
+            <h2>What to Expect</h2>
+            <p>A COMPLETE CULINARY JOURNEY</p>
+        </div>
+        <div class="experience-grid">
+            <div class="experience-card">
+                <div class="experience-icon">🍷</div>
+                <h4>Wine Pairings</h4>
+                <p>Expertly curated wine selections complementing each course</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">⏱️</div>
+                <h4>3 Hour Journey</h4>
+                <p>Relax and savor the experience at a comfortable pace</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">👨‍🍳</div>
+                <h4>13 Courses</h4>
+                <p>A progressive menu showcasing seasonal ingredients</p>
+            </div>
+            <div class="experience-card">
+                <div class="experience-icon">🌟</div>
+                <h4>Intimate Setting</h4>
+                <p>Warm atmosphere with tall ceilings and artistic details</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery">
+        <div class="section-header">
+            <h2>Our Culinary Gallery</h2>
+            <p>ARTISTRY ON EVERY PLATE</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80')"></div>
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1559847844-5315695dadae?w=800&q=80')"></div>
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80')"></div>
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1551024506-0bccd828d307?w=800&q=80')"></div>
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=80')"></div>
+            <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?w=800&q=80')"></div>
+        </div>
+    </section>
+
+    <section class="reservation" id="reservation">
+        <div class="reservation-content">
+            <h2>Reserve Your Table</h2>
+            <p>Join us for an unforgettable evening of California Mexican cuisine. We recommend planning for three hours to fully enjoy your experience at Californios.</p>
+            <div class="contact-info">
+                <p><a href="tel:+14157570994">+1 (415) 757-0994</a></p>
+                <p>355 11th Street, San Francisco, CA 94103</p>
+                <p><a href="mailto:info@californios.com">info@californios.com</a></p>
+            </div>
+            <a href="https://www.californiossf.com" class="cta-button">BOOK NOW</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">MENU</a>
+                <a href="#">WINE LIST</a>
+                <a href="#">GIFT CARDS</a>
+                <a href="#">PRESS</a>
+                <a href="#">CONTACT</a>
+            </div>
+            <p class="copyright">© 2025 Californios. Two Michelin Stars. Family Owned & Operated.</p>
+        </div>
+    </footer>
+</body>
+</html>
